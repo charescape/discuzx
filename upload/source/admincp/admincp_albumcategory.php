@@ -26,6 +26,7 @@ if($operation == 'list') {
 			array('list', 'albumcategory', 1)
 		));
 
+		/*search={"albumcategory":"action=albumcategory"}*/
 		showformheader('albumcategory');
 		showtableheader('', 'nobottom');
 		showsetting('system_category_stat', 'settingnew[albumcategorystat]', $_G['setting']['albumcategorystat'], 'radio', '', 1);
@@ -42,6 +43,7 @@ if($operation == 'list') {
 		showtablefooter();
 		echo '</td></tr>';
 		showtablefooter();
+		/*search*/
 
 		showtableheader('', 'notop');
 		showsubmit('editsubmit');

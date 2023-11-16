@@ -12,6 +12,7 @@ error_reporting(0);
 
 _get_script_url();
 define('UC_API', (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/')));
+// 非独立模式下若想为头像服务设置独立域名（如CDN等服务），可以在此处进行配置UC_AVTURL（结尾不可有/）
 define('UC_AVTURL', '');
 
 $uid = isset($_GET['uid']) ? $_GET['uid'] : 0;
@@ -20,6 +21,7 @@ $random = isset($_GET['random']) ? $_GET['random'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 $check = isset($_GET['check_file_exists']) ? $_GET['check_file_exists'] : '';
 
+// ts=1，表示不用301回复，同时整个URL后面加上图像文件的最后修改时间
 $ts = isset($_GET['ts']) ? $_GET['ts'] : '';
 
 $avatar = get_avatar($uid, $size, $type);
@@ -41,14 +43,14 @@ if(file_exists($avatar_file)) {
 }
 
 if(empty($random)) {
-	if (empty($ts)) {
+	if (empty($ts)) { // 如果不加随机数，也不加最后修改时间
 		header("HTTP/1.1 301 Moved Permanently");
 		header("Last-Modified:".date('r'));
-		header("Expires: ".date('r', time() + 86400));
-	} elseif($avatar_url != 'noavatar.svg') {
+		header("Expires: ".date('r', time() + 86400));	
+	} elseif($avatar_url != 'noavatar.svg') { // 如果不加随机数，加最后修改时间
 		$avatar_url .= '?ts='.filemtime($avatar_file);
 	}
-} else {
+} else { // 如果加随机数
 	$avatar_url .= '?random='.rand(1000, 9999);
 }
 
@@ -86,18 +88,25 @@ function _get_script_url() {
 }
 
 function is_https() {
+	// PHP 标准服务器变量
 	if(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off') {
 		return true;
 	}
+	// X-Forwarded-Proto 事实标准头部, 用于反代透传 HTTPS 状态
 	if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https') {
 		return true;
 	}
+	// 阿里云全站加速私有 HTTPS 状态头部
+	// Git 意见反馈 https://gitee.com/Discuz/DiscuzX/issues/I3W5GP
 	if(isset($_SERVER['HTTP_X_CLIENT_SCHEME']) && strtolower($_SERVER['HTTP_X_CLIENT_SCHEME']) == 'https') {
 		return true;
 	}
+	// 西部数码建站助手私有 HTTPS 状态头部
+	// 官网意见反馈 https://discuz.dismall.com/thread-3849819-1-1.html
 	if(isset($_SERVER['HTTP_FROM_HTTPS']) && strtolower($_SERVER['HTTP_FROM_HTTPS']) != 'off') {
 		return true;
 	}
+	// 服务器端口号兜底判断
 	if(isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) {
 		return true;
 	}

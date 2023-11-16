@@ -80,7 +80,9 @@ if(submitcheck('editsubmit')) {
 
 } else {
 	showsubmenu('district');
+	/*search={"district":"action=district"}*/
 	showtips('district_tips');
+	/*search*/
 
 	showformheader('district&countryid='.$values[0].'&pid='.$values[1].'&cid='.$values[2].'&did='.$values[3]);
 	showboxheader();

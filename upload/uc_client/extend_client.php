@@ -6,6 +6,10 @@
 	Developers should make their own extensions to handle UCenter notifications.
 */
 
+/**
+ *      [Discuz!] (C)2001-2099 Comsenz Inc.
+ *      This is NOT a freeware, use is subject to license terms
+ */
 
 (defined('IN_UC') || defined('IN_API')) or exit('Access denied');
 

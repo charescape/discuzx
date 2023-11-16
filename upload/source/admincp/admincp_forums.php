@@ -466,7 +466,7 @@ var rowtypedata = [
 		C::t('forum_forum')->delete_by_fid($source);
 		C::t('home_favorite')->delete_by_id_idtype($source, 'fid');
 		C::t('forum_moderator')->delete_by_fid($source);
-		C::t('common_member_forum_buylog')->delete_by_fid($target);
+		C::t('common_member_forum_buylog')->delete_by_fid($target);		
 
 		$query = C::t('forum_access')->fetch_all_by_fid_uid($source);
 		foreach($query as $access) {
@@ -619,6 +619,7 @@ var rowtypedata = [
 
 		if(count($mforum) == 1 && $mforum[0]['type'] == 'group') {
 			$mforum[0]['extra'] = dunserialize($mforum[0]['extra']);
+			/*search={"forums_admin":"action=forums","forums_edit":"action=forums&operation=edit"}*/
 			showtableheader();
 			showsetting('forums_edit_basic_cat_name', 'namenew', $mforum[0]['name'], 'text');
 			showsetting('forums_edit_basic_cat_name_color', 'extranew[namecolor]', $mforum[0]['extra']['namecolor'], 'color');
@@ -640,6 +641,7 @@ var rowtypedata = [
 			showsetting('forums_edit_basic_seodescription', 'seodescriptionnew', dhtmlspecialchars($mforum[0]['seodescription']), 'textarea');
 			showsubmit('detailsubmit');
 			showtablefooter();
+			/*search*/
 
 		} else {
 
@@ -758,6 +760,7 @@ var rowtypedata = [
 
 				$_G['multisetting'] = $multiset ? 1 : 0;
 				showmultititle();
+				/*search={"forums_admin":"action=forums","forums_edit_basic":"action=forums&operation=edit&anchor=basic"}*/
 				showtagheader('div', 'basic', $anchor == 'basic');
 				if(!$multiset) {
 					showtips('forums_edit_tips');
@@ -813,7 +816,9 @@ var rowtypedata = [
 				showsetting('forums_edit_basic_seodescription', 'seodescriptionnew', dhtmlspecialchars($forum['seodescription']), 'textarea');
 				showtablefooter();
 				showtagfooter('div');
+				/*search*/
 
+				/*search={"forums_admin":"action=forums","forums_edit_extend":"action=forums&operation=edit&anchor=extend"}*/
 				showtagheader('div', 'extend', $anchor == 'extend');
 				if(!$multiset) {
 					showtips('forums_edit_tips');
@@ -866,7 +871,7 @@ var rowtypedata = [
 						} else {
 							$replybgicon = $_G['setting']['attachurl'].'common/'.$forum['replybg'].'?'.random(6);
 						}
-						$replybghtml = '<label><input type="checkbox" class="checkbox" name="delreplybg" value="yes" /> '.$lang['delete'].'</label><br /><img src="'.$replybgicon.'" width="200px" />';
+						$replybghtml = '<label><input type="checkbox" class="checkbox" name="delreplybg" value="yes" /> '.$lang['delete'].'</label><br /><img src="'.$replybgicon.'" width="200px" />';                        
 					}
 					showsetting('forums_edit_extend_reply_background', 'replybgnew', (!$replybgurl['host'] ? str_replace($_G['setting']['attachurl'].'common/', '', $forum['replybg']) : $forum['replybg']), 'filetext', '', 0, $replybghtml);
 				}
@@ -896,7 +901,9 @@ var rowtypedata = [
 				showsetting('forums_edit_extend_recommend_dateline', 'modrecommendnew[dateline]', $forum['modrecommend']['dateline'], 'text');
 				showtablefooter();
 				showtagfooter('div');
+				/*search*/
 
+				/*search={"forums_admin":"action=forums","forums_edit_posts":"action=forums&operation=edit&anchor=posts"}*/
 				showtagheader('div', 'posts', $anchor == 'posts');
 				if(!$multiset) {
 					showtips('forums_edit_tips');
@@ -951,8 +958,10 @@ var rowtypedata = [
 
 				showtablefooter();
 				showtagfooter('div');
+				/*search*/
 
 				if(!$multiset) {
+					/*search={"forums_admin":"action=forums","forums_edit_attachtype":"action=forums&operation=edit&anchor=attachtype"}*/
 					showtagheader('div', 'attachtype', $anchor == 'attachtype');
 					showtips('forums_edit_attachtype_tips');
 					showtableheader('', 'nobottom');
@@ -961,7 +970,9 @@ var rowtypedata = [
 					echo '<tr><td></td><td colspan="2"><div><a href="###" onclick="addrow(this, 1)" class="addtr">'.$lang['misc_attachtype_add'].'</a></div></tr>';
 					showtablefooter();
 					showtagfooter('div');
+					/*search*/
 
+					/*search={"forums_admin":"action=forums","forums_edit_credits_policy":"action=forums&operation=edit&anchor=credits"}*/
 					showtagheader('div', 'credits', $anchor == 'credits');
 					if(!$multiset) {
 						showtips('forums_edit_tips');
@@ -1020,6 +1031,7 @@ var rowtypedata = [
 					</script>
 EOF;
 					showtagfooter('div');
+					/*search*/
 				}
 
 				if($allowthreadtypes && !$multiset) {
@@ -1045,6 +1057,7 @@ EOF;
 		];
 	</script>
 EOT;
+					/*search={"forums_admin":"action=forums","forums_edit_threadtypes_config":"action=forums&operation=edit&anchor=threadtypes"}*/
 					showtagheader('div', 'threadtypes', $anchor == 'threadtypes');
 					if(!$multiset) {
 						showtips('forums_edit_tips');
@@ -1079,7 +1092,9 @@ EOT;
 					showtablefooter();
 					showtagfooter('div');
 					showtagfooter('div');
+					/*search*/
 
+					/*search={"forums_admin":"action=forums","forums_edit_threadsorts":"action=forums&operation=edit&anchor=threadsorts"}*/
 					showtagheader('div', 'threadsorts', $anchor == 'threadsorts');
 					if(!$multiset) {
 						showtips('forums_edit_tips');
@@ -1103,8 +1118,10 @@ EOT;
 					showtablefooter();
 					showtagfooter('div');
 					showtagfooter('div');
+					/*search*/
 				}
 
+				/*search={"forums_admin":"action=forums","forums_edit_perm_forum":"action=forums&operation=edit&anchor=perm"}*/
 				showtagheader('div', 'perm', $anchor == 'perm');
 				if(!$multiset) {
 					showtips('forums_edit_tips');
@@ -1261,6 +1278,7 @@ EOT;
 					showsetting('forums_edit_perm_spview', array('spviewpermnew', $spviewgroup), $forum['spviewperm'], 'mcheckbox');
 					showsetting('forums_edit_perm_formulapermmessage', 'formulapermmessagenew', $forum['formulapermmessage'], 'textarea');
 					showtablefooter();
+					/*search*/
 
 				}
 				if($pluginsetting) {
@@ -1586,7 +1604,7 @@ EOT;
 										$threadtypes_newicon = trim($_GET['newicon'][$key]);
 										$newtypeid = C::t('forum_threadclass')->insert(array('fid' => $fid, 'name' => $val, 'displayorder' => $threadtypes_newdisplayorder, 'icon' => $threadtypes_newicon, 'moderators' => intval($_GET['newmoderators'][$key])), true);
 									} else {
-										$threadtypes_newicon = $newtypearr['icon'];
+										$threadtypes_newicon = $newtypearr['icon'];// 已存在的分类,使用原来属性
 										$threadtypes_newdisplayorder = $newtypearr['displayorder'];
 										$_GET['newmoderators'][$key] = $newtypearr['moderators'];
 									}
@@ -1883,7 +1901,7 @@ EOT;
 		deletethread($tids);
 		deletedomain($fid, 'forum');
 		deletedomain($fid, 'subarea');
-		if($currow + $pp > $total) {
+		if($currow + $pp > $total) {			
 			C::t('forum_forum')->delete_by_fid($fid);
 			C::t('common_nav')->delete_by_type_identifier(5, $fid);
 			C::t('home_favorite')->delete_by_id_idtype($fid, 'fid');

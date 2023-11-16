@@ -40,7 +40,9 @@ if(!$operation) {
 			array('smilies_type', 'smilies', 1),
 			array('smilies_import', 'smilies&operation=import', 0),
 		));
+		/*search={"nav_smilies":"action=smilies","smilies_type":"action=smilies"}*/
 		showtips('smilies_tips_smileytypes');
+		/*search*/
 		showformheader('smilies');
 		showboxheader();
 		showtableheader();
@@ -389,7 +391,9 @@ EOT;
 			array('smilies_type', 'smilies', 0),
 			array('smilies_import', 'smilies&operation=import', 1),
 		));
+		/*search={"nav_smilies":"action=smilies","smilies_import":"action=smilies&operation=import"}*/
 		showtips('smilies_tips');
+		/*search*/
 		showformheader('smilies&operation=import', 'enctype');
 		showtableheader('smilies_import');
 		showimportdata();

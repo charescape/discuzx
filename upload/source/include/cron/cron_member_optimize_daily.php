@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+// 用户分表操作前先判定用户分表是否开启
 if(getglobal('setting/membersplit')) {
 	C::t('common_member')->split(100);
 }

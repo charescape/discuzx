@@ -10,6 +10,15 @@ if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/*
+ * $_G['setting'] = new memory_setting_array()
+ * 由于memory_setting_array继承了ArrayObject，因此可以正常以原来的方式访问，比如 $_G['setting']['memory']
+ * 在启用了redis的情况下，这个对象采用lazy + eager load的方式工作：
+ * 	1. 默认构造函数不加载任何setting值
+ * 	2. 在FIELDS_GROUPS里定义的多个field group，任何一个field的访问，都会自动加载这个field所在的整个group
+ * 	3. 对于不在这里定义的field，访问时再加载
+ * 对于其它类型的memory，直接加载整个setting
+ */
 class memory_setting_array implements ArrayAccess {
 	private $can_lazy = false;
 	public $array = Array();
@@ -51,7 +60,7 @@ class memory_setting_array implements ArrayAccess {
 	public function __construct()
 	{
  		$this->can_lazy = C::memory()->goteval && C::memory()->gothash;
-		if (!$this->can_lazy) {
+		if (!$this->can_lazy) { // 不支持lazy load的时候，直接加载整个数据
 			$this->array = memory('get', self::SETTING_KEY);
 			foreach ($this->array as $key => $value) {
 				if ($value) $this->array[$key] = dunserialize($value);
@@ -99,6 +108,10 @@ class memory_setting_array implements ArrayAccess {
 		unset($this->array[$index]);
 	}
 
+	/*
+	 * 不支持lazy load的时候，直接整个保存
+	 * 支持lazy load的时候，保存为hash，每个field都做serialize
+	 */
 	public static function save($data)
 	{
 		$can_lazy = C::memory()->goteval && C::memory()->gothash;

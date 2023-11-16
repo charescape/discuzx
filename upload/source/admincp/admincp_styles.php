@@ -555,6 +555,7 @@ function imgpre_switch(id) {
 </script>
 <?php
 
+		//是否有自定义配置文件
 		$configflag = false;
 		if(preg_match('/^.?\/template\/([a-z]+[a-z0-9_]*)$/', $style['directory'], $a)) {
 			$configfile = DISCUZ_ROOT . './template/' . $a[1] . '/config.inc.php';
@@ -566,6 +567,7 @@ function imgpre_switch(id) {
 
 		if(!$configflag) {
 			echo '<iframe class="preview" frameborder="0" src="' . ADMINSCRIPT . '?action=styles&preview=yes&styleid=' . $id . '"></iframe>';
+			/*search={"styles_admin":"action=styles&operation=edit"}*/
 			showtips('styles_tips');
 
 			showformheader("styles&operation=edit&id=$id", 'enctype');
@@ -627,6 +629,7 @@ function imgpre_switch(id) {
 			showsubmit('editsubmit', 'submit', 'del');
 			showtablefooter();
 			showformfooter();
+			/*search*/
 		}
 	} else {
 		$style = C::t('common_style')->fetch_by_styleid($id);
@@ -634,6 +637,7 @@ function imgpre_switch(id) {
 			cpmsg('style_not_found', '', 'error');
 		}
 
+		//是否有自定义配置文件
 		$configflag = false;
 		if(preg_match('/^.?\/template\/([a-z]+[a-z0-9_]*)$/', $style['directory'], $a)) {
 			$configfile = DISCUZ_ROOT . './template/' . $a[1] . '/config.inc.php';

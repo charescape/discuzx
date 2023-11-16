@@ -160,7 +160,7 @@ class plugin_qqconnect extends plugin_qqconnect_base {
 			}
 			$_G['connect']['share_images'] = implode('|', $share_images);
 		}
-		return tpl_viewthread_share_method($jsurl);
+		return tpl_viewthread_share_method($jsurl);		
 	}
 
 }

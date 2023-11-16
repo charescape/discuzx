@@ -26,6 +26,7 @@ if($operation == 'list') {
 			array('list', 'blogcategory', 1)
 		));
 
+		/*search={"blogcategory":"action=blogcategory"}*/
 		showformheader('blogcategory');
 		showtableheader('', 'nobottom');
 		showsetting('system_category_stat', 'settingnew[blogcategorystat]', $_G['setting']['blogcategorystat'], 'radio', '', 1);
@@ -42,6 +43,7 @@ if($operation == 'list') {
 		showtablefooter();
 		echo '</td></tr>';
 		showtablefooter();
+		/*search*/
 
 		showtableheader('', 'notop');
 		showsubmit('editsubmit');

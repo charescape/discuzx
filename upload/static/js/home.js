@@ -220,6 +220,7 @@ function checkImage(url) {
 }
 
 function showFlash(host, flashvar, obj, shareid) {
+	// 引用前期引入的 detectPlayer 对资源播放状态进行判断
 	var re = new RegExp('.[A-Za-z0-9]+$', 'ig');
 	var ext = flashvar.match(re).pop().substr(1);
 	if (obj) {
@@ -1029,6 +1030,7 @@ function spaceMusicPlayer(url, height) {
 	if (JSLOADED[STATICURL + 'js/player/aplayer.min.js']) {
 		var x = new Ajax('JSON');
 		x.getJSON(url, function(s) {
+			// 后端直接返回, 由前端负责将原始数据调整为所需格式
 			var audio = new Array();
 			s.mp3list.forEach(function (s) {
 				var obj = new Object();
@@ -1038,9 +1040,11 @@ function spaceMusicPlayer(url, height) {
 				obj.cover = s.cdbj;
 				audio.push(obj);
 			});
+			// 设置样式, 保证播放器展示空间
 			$('music_content').style.height = height + 'px';
 			$('music_content').style.padding = '0px';
 			$('music_content').style.margin = '0px';
+			// 初始化APlayer
 			window['music_content'] = new APlayer({
 				container: $('music_content'),
 				autoplay: s.config.autorun == 'true',
