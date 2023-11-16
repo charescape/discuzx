@@ -83,12 +83,10 @@ if(!submitcheck('blogsubmit')) {
 		array('blog_search', !$searchsubmit),
 		array('nav_blog', $searchsubmit)
 	));
-	/*search={"nav_blog":"action=blog","newlist":"action=blog"}*/
 	if($muticondition) {
 		showtips('blog_tips');
 	}
 	$staticurl = STATICURL;
-	/*search*/
 	echo <<<EOT
 <script type="text/javascript" src="{$staticurl}js/calendar.js"></script>
 <script type="text/JavaScript">
@@ -99,7 +97,6 @@ function page(number) {
 </script>
 EOT;
 	showtagheader('div', 'searchposts', !$searchsubmit && empty($newlist));
-	/*search={"nav_blog":"action=blog","search":"action=blog&search=true"}*/
 	showformheader("blog".(!empty($_GET['search']) ? '&search=true' : ''), '', 'blogforum');
 	showhiddenfields(array('page' => $page, 'pp' => $_GET['pp'] ? $_GET['pp'] : $_GET['perpage']));
 	showtableheader();
@@ -123,7 +120,6 @@ EOT;
 	showtablefooter();
 	showformfooter();
 	showtagfooter('div');
-	/*search*/
 
 } else {
     if($_GET['blogids']) {

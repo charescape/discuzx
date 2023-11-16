@@ -7,5 +7,3 @@ if (!defined('IN_DISCUZ')) {
 require_once DISCUZ_ROOT . './source/plugin/witframe_api/core.php';
 
 Lib\Remote::getInstance()->run();
-
-

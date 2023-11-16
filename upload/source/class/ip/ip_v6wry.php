@@ -6,9 +6,6 @@ if(!defined('IN_DISCUZ')) {
 
 class ip_v6wry_init_exception extends Exception {}
 
-/**
- * Modified from class IPDBv6 ( popcorner, MIT License )
- */
 
 class ip_v6wry {
 	private static $instance = null;

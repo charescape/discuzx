@@ -13,9 +13,6 @@ if(!defined('IN_DISCUZ')) {
 
 class table_common_visit extends discuz_table
 {
-	/*
-	 * memory情况下，所有的数据保存于一个SortedSet下，member = ip, score = view
-	 */
 	public function __construct() {
 
 		$this->_table = 'common_visit';
@@ -25,7 +22,6 @@ class table_common_visit extends discuz_table
 		$this->_cache_ttl = -1;
 
 		parent::__construct();
-		// 依赖SortedSet数据类型
 		$this->_allowmem = $this->_allowmem && C::memory()->gotsortedset;
 	}
 
@@ -100,10 +96,6 @@ class table_common_visit extends discuz_table
 		return memory('zcard', 'idx_ip_view', $this->_pre_cache_key);
 	}
 
-	/*
-	 * 从$start和$limit计算start和end
-	 * 当$limit为0时，$start参数表示limit
-	 */
 	private function get_start_and_end($start, $limit) {
 		$limit = intval($limit > 0 ? $limit : 0);
 		$start = intval($start > 0 ? $start : 0);

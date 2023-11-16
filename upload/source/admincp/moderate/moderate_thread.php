@@ -96,7 +96,6 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 	loadcache('forums');
 	require_once libfile('function/misc');
 	foreach($threadlist as $thread) {
-		//修正数据：帖子已经通过，却仍然显示在待审核列表
 		if($thread['displayorder'] >= 0) {
 			updatemoderate('tid', $thread['tid'], 2);
 			continue;
@@ -276,7 +275,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		$forums = array();
 
 		$tids = $authoridarray = $moderatedthread = array();
-		$firsttime_validatethread = array();//首次审核通过帖子
+		$firsttime_validatethread = array();
 		$uids = array();
 		foreach(C::t('forum_thread')->fetch_all_by_tid_fid($moderation['validate'], $fidadd['fids']) as $thread) {
 			if($thread['displayorder'] != -2 && $thread['displayorder']!= -3) {
@@ -308,14 +307,14 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 				);
 			}
 		}
-		if($firsttime_validatethread) {//首次审核通过,发布动态
+		if($firsttime_validatethread) {
 			require_once libfile('function/post');
 			require_once libfile('function/feed');
-			$forumsinfo = C::t('forum_forum')->fetch_all_info_by_fids($forums);//需要allowfeed信息,允许推送动态,默认推送广播
+			$forumsinfo = C::t('forum_forum')->fetch_all_info_by_fids($forums);
 			$users = array();
 			foreach ($uids as $uid) {
 				$space = array('uid'=>$uid);
-				space_merge($space, 'field_home');//需要['privacy']['feed']['newthread']信息
+				space_merge($space, 'field_home');
 				$users[$uid] = $space;
 			}
 			foreach ($firsttime_validatethread as $thread) {

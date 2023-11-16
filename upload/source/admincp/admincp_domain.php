@@ -31,9 +31,7 @@ if($operation == 'app') {
 			'mobile' => $lang['mobile'],
 			'default' => $lang['default']
 		);
-		/*search={"setting_domain":"action=domain","setting_domain_app":"domain&operation=app"}*/
 		showtips('setting_domain_app_tips');
-		/*search*/
 
 		showformheader('domain&operation=app');
 		showboxheader();
@@ -96,9 +94,7 @@ if($operation == 'app') {
 		'channel' => $lang['channel'],
 	);
 	if(!submitcheck('submit')) {
-		/*search={"setting_domain":"action=domain","setting_domain_root":"domain&operation=root"}*/
 		showtips('setting_domain_root_tips');
-		/*search*/
 		showformheader('domain&operation=root');
 		showboxheader();
 		showtableheader();
@@ -142,7 +138,6 @@ if($operation == 'app') {
 } else {
 	if(!submitcheck('domainsubmit')) {
 
-		/*search={"setting_domain":"action=domain","setting_domain_base":"domain&operation=base"}*/
 		showtips('setting_domain_base_tips');
 		showformheader("domain");
 		showtableheader();
@@ -160,7 +155,6 @@ if($operation == 'app') {
 		showsubmit('domainsubmit');
 		showtablefooter();
 		showformfooter();
-		/*search*/
 	} else {
 
 		$settings = $_GET['settingnew'];

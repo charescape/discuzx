@@ -54,9 +54,7 @@ if($operation == 'set') {
 	if(!submitcheck('cardsubmit')) {
 		showformheader('card&operation=set&');
 		showtableheader();
-		/*search={"card_config_open":"action=card"}*/
 		showsetting('card_config_open', 'card_config_open', ($card_setting['open'] ? $card_setting['open'] : 0), 'radio');
-		/*search*/
 		showsubmit('cardsubmit');
 		showtablefooter();
 		showformfooter();
@@ -94,9 +92,7 @@ if($operation == 'set') {
 	$perpage = max(20, empty($_GET['perpage']) ? 20 : intval($_GET['perpage']));
 	echo '<script type="text/javascript" src="' . STATICURL . 'js/calendar.js"></script>';
 
-	/*search={"card_manage_tips":"action=card&operation=manage"}*/
 	showtips('card_manage_tips');
-	/*search*/
 	$card_type_option = '';
 	foreach(C::t('common_card_type')->range(0, 0, 'ASC') as $result) {
 		$card_type[$result['id']] = $result;
@@ -211,9 +207,7 @@ if($operation == 'set') {
 			}
 		}
 	}
-	/*search={"card_type_tips":"action=card&operation=type"}*/
 	showtips('card_type_tips');
-	/*search*/
 	showformheader('card&operation=type&');
 	showtableheader();
 	showtablerow('class="header"', array('', ''), array(
@@ -254,7 +248,6 @@ EOT;
 
 		echo '<script type="text/javascript" src="' . STATICURL . 'js/calendar.js"></script>';
 		showformheader('card&operation=make&');
-		/*search={"card_make_tips":"admin.php?action=card&operation=make"}*/
 		showtips('card_make_tips');
 		showtableheader();
 
@@ -281,7 +274,6 @@ EOT;
 		showsetting('card_make_cleardateline', 'cleardateline', date("Y-m-d", $_G['timestamp']+31536000), 'calendar', '', 0, '');
 
 		showsetting('card_make_description', 'description', $card_log['description'] , 'text');
-		/*search*/
 		showsubmit('cardsubmit');
 		showtablefooter();
 		showformfooter();

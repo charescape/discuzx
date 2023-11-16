@@ -36,30 +36,22 @@ foreach ($_G['forum_threadlist'] as $k => $thread) {
 		$_G['forum_threadlist'][$k]['authorid'] = 0;
 	}
 	$userids[] = $thread['authorid'];
-	// get message one by one?
 	$firstpost = C::t('forum_post')->fetch_threadpost_by_tid_invisible($thread['tid']);
-	// also need to check the access
 
 	if($thread['readperm'] < $_G['group']['readaccess'] && $firstpost['invisible'] == 0){
-		// the post is visible to users
-		// compile the message
 		$firstPostMessage = $firstpost['message'];
-		// how many images are attached here
 		preg_match_all('/\[attach\](\d+)\[\/attach\]/i', $firstPostMessage, $matches, PREG_SET_ORDER);
 		$_G['forum_threadlist'][$k]['attachmentImageNumber'] = count($matches);
-		// start to preview some picture
 		$cnt = 0;
 
 		$aidList = array();
 		foreach ($matches as $i => $match){
-			// only allow a maximum of 3 attachment
 			if($cnt > 3){
 				break;
 			}
 			$cnt += 1;
 			$aidList[] = $match[1];
 		}
-		// then query it
 		$attachmentImageList = array();
 		$attachments = C::t('forum_attachment')->fetch_all($aidList);
 
@@ -68,16 +60,11 @@ foreach ($_G['forum_threadlist'] as $k => $thread) {
 			$attachmentImageList[] = $attachment;
 		}
 		$_G['forum_threadlist'][$k]['attachmentImagePreviewList'] = $attachmentImageList;
-		// compile attachment placeholder
 		$attach_img_text = lang('forum/misc', 'attach_img');
 		$attach_words = '['.$attach_img_text.']';
-		// compile attachment placeholder
 		$firstPostMessage = preg_replace('/\[attach\](\d+)\[\/attach\]/i', $attach_words, $firstPostMessage);
-		// further removing pesedo code
 		$firstPostMessage = preg_replace('/<\/*.*?>|&nbsp;|\r\n|\[attachimg\].*?\[\/attachimg\]|\[quote\].*?\[\/quote\]|\[(?!'.$attach_words.')\/*.*?\]/ms', '', $firstPostMessage);
-		// allow a maximum 5000 words
 		$firstPostMessage = trim(threadmessagecutstr($thread, $firstPostMessage, 500));
-		// give it to user
 		$_G['forum_threadlist'][$k]['message'] = $firstPostMessage;
 	}
 }

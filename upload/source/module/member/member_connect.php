@@ -95,7 +95,6 @@ if($_GET['action'] == 'login') { // debug 已有账号，绑定我的账号走�
 		$ctl_obj->setting['secqaa']['status'] = $_G['setting']['secqaa']['status'];
 	}
 
-	//兼容手机端有填写密码的情况
 	if(!defined('IN_MOBILE') || empty($_GET[$_G['setting']['reginput']['password']])) {
 		$ctl_obj->setting['ignorepassword'] = 1;
 	}

@@ -61,4 +61,3 @@ if (!empty($_POST)) {
 	$_GET['id'] = 'witframe_api:api';
 	require './plugin.php';
 }
-

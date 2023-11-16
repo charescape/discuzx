@@ -187,7 +187,7 @@ if($method == 'show_license') {
 
 	}
 
-	@unlink(ROOT_PATH.'./install/index.php');// 删除UCenter安装文件, Git新增
+	@unlink(ROOT_PATH.'./install/index.php');
 
 } elseif($method == 'install_check') {
 

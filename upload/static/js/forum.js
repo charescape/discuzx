@@ -175,7 +175,7 @@ function announcement() {
                 ann.announcementScrollnext(targetTop);
             }, 10);
         } else {
-            this.annrowcount++; 
+            this.annrowcount++;
             this.annst = setTimeout(function() {
                 ann.announcementScroll();
             }, this.anndelay);

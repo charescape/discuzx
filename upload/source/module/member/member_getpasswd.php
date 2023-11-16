@@ -79,7 +79,6 @@ if($uid && $id && $sign === make_getpws_sign($uid, $id)) {
 		C::t('common_member')->update($uid, array('password' => $password));
 		C::t('common_member_field_forum')->update($uid, array('authstr' => ''));
 
-		// 给邮箱发送重置或修改密码的邮件
 		if(!function_exists('sendmail')) {
 			include libfile('function/mail');
 		}
